@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>Kronkelschrift</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    </head>
+
+    <body onload="generate()"> 
+        <div class="container">
+            <div class="row m-4">
+                <div class="col-md-7">
+                    <div class="border-bottom mb-4">
+                        <h2>Kronkelschrift</h2>
+                        <p class="text-secondary">An ornamental way of encoding text, by Victor Voermans, 2021.</p>
+                    </div>
+                    <div>
+                        <!-- Text -->
+
+                        <h5>Text</h5>
+
+                        <p class="text-secondary">Kronkelschrift isn't designed to write very long texts; mostly just names, phrases, or maybe a short poem. The script also can't write spaces, but they aren't as necessary as you might think! Many writing systems around the world do without them. In total, Kronkelschrift can encrypt 3<sup>3</sup> = 27 characters: the letters <b>a-z</b>, and a <b>comma</b>, which you can use to separate words, phrases, or the lines of a poem. For numbers, you might use Roman numerals.</p>
+
+                        <div class="form mb-4">
+                            <textarea class="form-control font-monospace text-primary text-bg-light" spellcheck="false" id="input" name="input" style="height:120px;" onkeyup="generate()">shallicomparetheetoasummersday</textarea>
+                        </div>
+
+                        <!-- Width -->
+                        
+                        <h5>Width</h5>
+
+                        <div class="form-floating mb-4">
+                            <input type="range" class="form-range" id="width" name="width" value="5" min="2" max="20" step="1" oninput="generate()">
+                        </div>
+
+                        <!-- How it works -->
+
+                        <h5>How it works</h5>
+
+                        <p>Each letter has a code:</p>
+
+                        <table class="table table-sm">
+                            <tr>
+                                <th>a</th>
+                                <td>111</td>
+                                <th>o</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>b</th>
+                                <td>111</td>
+                                <th>p</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>c</th>
+                                <td>111</td>
+                                <th>q</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>d</th>
+                                <td>111</td>
+                                <th>r</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>e</th>
+                                <td>111</td>
+                                <th>s</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>f</th>
+                                <td>111</td>
+                                <th>t</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>g</th>
+                                <td>111</td>
+                                <th>u</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>h</th>
+                                <td>111</td>
+                                <th>v</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>i</th>
+                                <td>111</td>
+                                <th>w</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>j</th>
+                                <td>111</td>
+                                <th>x</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>k</th>
+                                <td>111</td>
+                                <th>y</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>l</th>
+                                <td>111</td>
+                                <th>z</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>m</th>
+                                <td>111</td>
+                                <th>,</th>
+                                <td>0101001</td>
+                            </tr>
+                            <tr>
+                                <th>n</th>
+                                <td>111</td>
+                            </tr>
+                        </table>
+
+                        <h5>Features to add</h5>
+                        <p>- Save image<br>- Change color (oninput!)</p>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="p-3 mx-3">
+                        <svg id="svg" xmlns="umalla">
+                            <rect id="background" x="0" y="0" />
+                            <path id="line" style="stroke-linecap:square;" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="umalla.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>
