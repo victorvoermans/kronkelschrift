@@ -65,7 +65,7 @@ function generate(){
     simplifyMessage();
         // Simplify the message; only lowercase letters (a-z) and underscores are allowed
     updateInput();
-        // ...
+        // Remove any non-allowed characters in the input while the user is typing
     codifyMessage();
         // Turn the message into a string of ones and zeroes
     completeMessage();
