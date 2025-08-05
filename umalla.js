@@ -213,22 +213,27 @@ function setColors(){
     document.getElementById("line").style.stroke = lineColor;
 }
 
-function downloadPNG(){
+function downloadPNG() {
     const svg = document.getElementById("svg");
     const serializer = new XMLSerializer();
     const svgString = serializer.serializeToString(svg);
 
-    const svgBlob = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+    const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
     const url = URL.createObjectURL(svgBlob);
 
     const img = new Image();
     img.onload = function () {
+        const scale = 4; // ⬅️ Increase this to make image bigger
+        const width = svg.width.baseVal.value * scale;
+        const height = svg.height.baseVal.value * scale;
+
         const canvas = document.createElement("canvas");
-        canvas.width = svg.width.baseVal.value;
-        canvas.height = svg.height.baseVal.value;
+        canvas.width = width;
+        canvas.height = height;
 
         const ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
+        ctx.imageSmoothingEnabled = false; // ⬅️ Disable anti-aliasing
+        ctx.drawImage(img, 0, 0, width, height);
 
         const pngUrl = canvas.toDataURL("image/png");
         const a = document.createElement("a");
@@ -239,7 +244,8 @@ function downloadPNG(){
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
     };
-    img.src = url;
+
+  img.src = url;
 } // This function was written by ChatGPT.
 
 function downloadSVG() {
