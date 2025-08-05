@@ -1,6 +1,34 @@
-// Generator for Kronkelschrift, by Victor Voermans, 2024. In this file's directory, there is an image which shows how the script works.
+// Generator for Kronkelschrift, by Victor Voermans, 2024-2025.
 
-const codes = [["a","111"],["b","1101"],["c","11001"],["d","1011"],["e","10101"],["f","101001"],["g","10011"],["h","100101"],["i","1001001"],["j","0111"],["k","01101"],["l","011001"],["m","01011"],["n","010101"],["o","0101001"],["p","010011"],["q","0100101"],["r","01001001"],["s","00111"],["t","001101"],["u","0011001"],["v","001011"],["w","0010101"],["x","00101001"],["y","0010011"],["z","00100101"],[",","001001001"]];
+const codes = [
+    ["a","111"],
+    ["b","1101"],
+    ["c","11001"],
+    ["d","1011"],
+    ["e","10101"],
+    ["f","101001"],
+    ["g","10011"],
+    ["h","100101"],
+    ["i","1001001"],
+    ["j","0111"],
+    ["k","01101"],
+    ["l","011001"],
+    ["m","01011"],
+    ["n","010101"],
+    ["o","0101001"],
+    ["p","010011"],
+    ["q","0100101"],
+    ["r","01001001"],
+    ["s","00111"],
+    ["t","001101"],
+    ["u","0011001"],
+    ["v","001011"],
+    ["w","0010101"],
+    ["x","00101001"],
+    ["y","0010011"],
+    ["z","00100101"],
+    [",","001001001"]
+];
     // Each character and its code
 const notAllowed = /[^abcdefghijklmnopqrstuvwxyz,]/g;
     // Regular expression that finds every character that is not allowed
@@ -22,10 +50,12 @@ let height;
     // The height of the svg canvas
 let lineData;
     // The data that will go into the svg's <path> to draw the line
-let backgroundColor = "#5a9d57ff";
+let backgroundColor;
     // The color of the background, as given by the user
-let lineColor = "#FFFFFF";
+let lineColor;
     // The color of the line, as given by the user
+let filename;
+    // Used in the download functions
 
 function generate(){
     getColumns();
@@ -60,7 +90,6 @@ function generate(){
         // Set the line's thickness to the value defined above
     setColors();
         // Give the background and line the colors selected by the user
-    // debug();
 }
 
 function getColumns(){
@@ -78,6 +107,7 @@ function simplifyMessage(){
 
 function updateInput(){
     document.getElementById("input").value = message;
+    filename = message;
 }
 
 function codifyMessage(){
@@ -162,11 +192,11 @@ function x(i){
     } else {
         return 1 + (2 * ((i % columns) - (columns / 2)));
     }
-}
+} // Calculates x-coordinate
 
 function y(i){
     return Math.floor(i / (columns / 2));
-}
+} // Calculates y-coordinate
 
 function setLineData(){
     document.getElementById("line").setAttribute("d", lineData);
@@ -177,10 +207,54 @@ function setLineWidth(){
 }
 
 function setColors(){
+    backgroundColor = document.getElementById("backgroundColor").value;
+    lineColor = document.getElementById("lineColor").value;
     document.getElementById("background").style.fill = backgroundColor;
     document.getElementById("line").style.stroke = lineColor;
 }
 
-function debug(){
-    console.log(columns);
-}
+function downloadPNG(){
+    const svg = document.getElementById("svg");
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svg);
+
+    const svgBlob = new Blob([svgString], {type: "image/svg+xml;charset=utf-8"});
+    const url = URL.createObjectURL(svgBlob);
+
+    const img = new Image();
+    img.onload = function () {
+        const canvas = document.createElement("canvas");
+        canvas.width = svg.width.baseVal.value;
+        canvas.height = svg.height.baseVal.value;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+
+        const pngUrl = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = pngUrl;
+        a.download = filename + ".png";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    };
+    img.src = url;
+} // This function was written by ChatGPT.
+
+function downloadSVG() {
+    const svg = document.getElementById("svg");
+    const serializer = new XMLSerializer();
+    const svgString = serializer.serializeToString(svg);
+
+    const blob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename + ".svg";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+} // This function was written by ChatGPT.

@@ -4,42 +4,79 @@
         <title>Kronkelschrift</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/x-icon" href="favicon.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
 
     <body onload="generate()"> 
         <div class="container">
             <div class="row m-4">
-                <div class="col-md-7">
+                <!-- Input -->
+                <div class="col-md-7 me-5">
+                    <!-- Header -->
                     <div class="border-bottom mb-4">
                         <h2>Kronkelschrift</h2>
                         <p class="text-secondary">An ornamental way of encoding text, by Victor Voermans, 2021.</p>
                     </div>
+                    
+                    <!-- Text -->
+                    <h5>Text</h5>
+                    <p class="text-secondary">Kronkelschrift isn't designed to write very long texts; mostly just names, phrases, or maybe a short poem. The script also can't write spaces, but they aren't as necessary as you might think! Many writing systems around the world do or have done without them. In total, Kronkelschrift can encrypt 3<sup>3</sup> = 27 characters: the letters <b>a-z</b>, and a <b>comma</b>, which you can use to separate words or phrases. For numbers, you might use Roman numerals.</p>
+                    <div class="form mb-4">
+                        <textarea class="form-control font-monospace text-primary text-bg-light" spellcheck="false" id="input" name="input" style="height:120px;" onkeyup="generate()">shallicomparetheetoasummersday</textarea>
+                    </div>
+
+                    <!-- Width -->
+                    <h5>Width</h5>
+                    <div class="form-floating mb-4">
+                        <input type="range" class="form-range" id="width" name="width" value="5" min="2" max="20" step="1" oninput="generate()">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg">
+                            <!-- Colors -->
+                            <h5>Colors</h5>
+                            <div class="row mb-4">
+                                <div class="col-sm py-2">
+                                    <input type="color" class="form-control form-control-color w-100" id="backgroundColor" name="backgroundColor" value="#5A9D57" oninput="generate()">
+                                </div>
+                                <div class="col-sm py-2">
+                                    <input type="color" class="form-control form-control-color w-100" id="lineColor" name="lineColor" value="#FFFFFF" oninput="generate()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg">
+                            <!-- Download -->
+                            <h5>Download</h5>
+                            <div class="row mb-4">
+                                <div class="col-sm py-2">
+                                    <button class="btn btn-primary w-100" onclick="downloadPNG()">.png</button>
+                                </div>
+                                <div class="col-sm py-2">
+                                    <button class="btn btn-primary w-100" onclick="downloadSVG()">.svg</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output -->
+                <div class="col-md">
+                    <div class="py-3">
+                        <svg id="svg" xmlns="umalla">
+                            <rect id="background" x="0" y="0" />
+                            <path id="line" style="stroke-linecap:square;" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- How it works -->
+            <div class="row m-4">
+                <div class="col-md-7">
                     <div>
-                        <!-- Text -->
-
-                        <h5>Text</h5>
-
-                        <p class="text-secondary">Kronkelschrift isn't designed to write very long texts; mostly just names, phrases, or maybe a short poem. The script also can't write spaces, but they aren't as necessary as you might think! Many writing systems around the world do without them. In total, Kronkelschrift can encrypt 3<sup>3</sup> = 27 characters: the letters <b>a-z</b>, and a <b>comma</b>, which you can use to separate words, phrases, or the lines of a poem. For numbers, you might use Roman numerals.</p>
-
-                        <div class="form mb-4">
-                            <textarea class="form-control font-monospace text-primary text-bg-light" spellcheck="false" id="input" name="input" style="height:120px;" onkeyup="generate()">shallicomparetheetoasummersday</textarea>
-                        </div>
-
-                        <!-- Width -->
-                        
-                        <h5>Width</h5>
-
-                        <div class="form-floating mb-4">
-                            <input type="range" class="form-range" id="width" name="width" value="5" min="2" max="20" step="1" oninput="generate()">
-                        </div>
-
-                        <!-- How it works -->
-
                         <h5>How it works</h5>
-
                         <p>Each letter has a code:</p>
-
                         <table class="table table-sm">
                             <tr>
                                 <th>a</th>
@@ -49,92 +86,95 @@
                             </tr>
                             <tr>
                                 <th>b</th>
-                                <td>111</td>
+                                <td>1101</td>
                                 <th>p</th>
-                                <td>0101001</td>
+                                <td>010011</td>
                             </tr>
                             <tr>
                                 <th>c</th>
-                                <td>111</td>
+                                <td>11001</td>
                                 <th>q</th>
-                                <td>0101001</td>
+                                <td>0100101</td>
                             </tr>
                             <tr>
                                 <th>d</th>
-                                <td>111</td>
+                                <td>1011</td>
                                 <th>r</th>
-                                <td>0101001</td>
+                                <td>01001001</td>
                             </tr>
                             <tr>
                                 <th>e</th>
-                                <td>111</td>
+                                <td>10101</td>
                                 <th>s</th>
-                                <td>0101001</td>
+                                <td>00111</td>
                             </tr>
                             <tr>
                                 <th>f</th>
-                                <td>111</td>
+                                <td>101001</td>
                                 <th>t</th>
-                                <td>0101001</td>
+                                <td>001101</td>
                             </tr>
                             <tr>
                                 <th>g</th>
-                                <td>111</td>
+                                <td>10011</td>
                                 <th>u</th>
-                                <td>0101001</td>
+                                <td>0011001</td>
                             </tr>
                             <tr>
                                 <th>h</th>
-                                <td>111</td>
+                                <td>100101</td>
                                 <th>v</th>
-                                <td>0101001</td>
+                                <td>001011</td>
                             </tr>
                             <tr>
                                 <th>i</th>
-                                <td>111</td>
+                                <td>1001001</td>
                                 <th>w</th>
-                                <td>0101001</td>
+                                <td>0010101</td>
                             </tr>
                             <tr>
                                 <th>j</th>
-                                <td>111</td>
+                                <td>0111</td>
                                 <th>x</th>
-                                <td>0101001</td>
+                                <td>00101001</td>
                             </tr>
                             <tr>
                                 <th>k</th>
-                                <td>111</td>
+                                <td>01101</td>
                                 <th>y</th>
-                                <td>0101001</td>
+                                <td>0010011</td>
                             </tr>
                             <tr>
                                 <th>l</th>
-                                <td>111</td>
+                                <td>011001</td>
                                 <th>z</th>
-                                <td>0101001</td>
+                                <td>00100101</td>
                             </tr>
                             <tr>
                                 <th>m</th>
-                                <td>111</td>
+                                <td>01011</td>
                                 <th>,</th>
-                                <td>0101001</td>
+                                <td>001001001</td>
                             </tr>
                             <tr>
                                 <th>n</th>
-                                <td>111</td>
+                                <td>010101</td>
                             </tr>
                         </table>
-
-                        <h5>Features to add</h5>
-                        <p>- Save image<br>- Change color (oninput!)</p>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="p-3 mx-3">
-                        <svg id="svg" xmlns="umalla">
-                            <rect id="background" x="0" y="0" />
-                            <path id="line" style="stroke-linecap:square;" />
-                        </svg>
+                        <p>As an example, we'll write the word <b>toothpick</b>. Its code is <b><span style="word-break: break-all;">0011010101001010100100110110010101001110010011100101101</span></b>. These numbers are laid out on an imaginary grid, like this:</p>
+                        <img src="how-1.png" class="img-fluid pb-3" style="max-width: 80vw; max-height: 80vh; height: auto; width: auto;">
+                        <p>What we're going to do is fill in the lines around the squares (their edges). We start by filling in the lines that don't touch a square, which are the same every time:</p>
+                        <img src="how-2.png" class="img-fluid pb-3" style="max-width: 80vw; max-height: 80vh; height: auto; width: auto;">
+                        <p>Next comes the key part: squares with a <b>1</b> get their right and left edges filled in, while squares with a <b>0</b> get their top and bottom edges filled in:</p>
+                        <img src="how-3.png" class="img-fluid pb-3" style="max-width: 80vw; max-height: 80vh; height: auto; width: auto;">
+                        <p>The resulting line pattern looks like this:</p>
+                        <img src="how-4.png" class="img-fluid pb-3" style="max-width: 80vw; max-height: 80vh; height: auto; width: auto;">
+                        <p>If we remove the grid and make the line thicker, you can see the pattern clearly emerging:</p>
+                        <img src="how-5.png" class="img-fluid pb-3 mb-4" style="max-width: 80vw; max-height: 80vh; height: auto; width: auto;">
+                        <img src="how-6.png" class="img-fluid pb-3" style="max-width: 80vw; max-height: 80vh; height: auto; width: auto;">
+                        <p>And that's our toothpick!</p>
+                        <hr class="my-4">
+                        <p>Victor Voermans<br>Leiden, 4 August 2025</p>
                     </div>
                 </div>
             </div>
