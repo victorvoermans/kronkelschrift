@@ -76,3 +76,41 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     </body>
 </html>
+
+<!-- 
+
+For anyone who needs to know, this is how the script works. First, each letter is turned to a code of ones and zeroes:
+
+a 111
+b 1101
+c 11001
+d 1011
+e 10101
+f 101001
+g 10011
+h 100101
+i 1001001
+j 0111
+k 01101
+l 011001
+m 01011
+n 010101
+o 0101001
+p 010011
+q 0100101
+r 01001001
+s 00111
+t 001101
+u 0011001
+v 001011
+w 0010101
+x 00101001
+y 0010011
+z 00100101
+, 001001001
+
+Next, imagine a chess board. Each number of a text's code is laid out on the white tiles (the color of the upper left tile), in rows from left to right, top to bottom. A tile with a 0 on it gets its top and bottom edges drawn, while a tile with a 1 on it gets its right and left edges drawn. Finally, the outer egdes which don't touch a tile also get drawn. The image you end up with is just these drawn edges; the chess board pattern is just the underlying structure.
+
+Victor Voermans, 6 August 2025.
+
+-->
